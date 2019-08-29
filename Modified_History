@@ -1,0 +1,13 @@
+#######################################################################
+These are official releases with brief descriptions of changes made.
+If you find any bugs, please report to miao.zhang@dal.ca. Thanks.
+#######################################################################
+1. Release MatchLocate1.0 on USTC Prof. Lianxing Wen's website, 02/07/2015
+2. Output the stacked continuous cross-correlogram in the searched grid ("go = 2"), 06/19 2015
+3. Add the waveform comparision and uncertainty estimation in example, 09/18 2015
+4. Add normalized cross-correlation code "ccsacc" and amplitude extraction code 'lsac', 09/18 2015
+5. Add parameter "go==3" to output the max CC at each seaching point, 12/29 2016
+6. Replace the -Levla0/evlo0/evdp0/mag0 by reading from sac files (to better use multiple references, ch user0 mag), 01/07 2017
+7. Now multiple phases can be used (MARKT is replaced by a integer array), 01/11 2017
+8. Remove SNR threshold and adopt CC and MAD thresholds (eaiser to setup and understand), 08/22/2019
+9. Release MatchLocate2.0 on Github, 08/26 2019
