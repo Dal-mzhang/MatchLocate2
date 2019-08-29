@@ -1,7 +1,7 @@
 # MatchLocate2
 Detect and locate small events from continuous seismic waveforms using templates (MatchLocate2)
 
-                    MatchLocate2.0  2019/08/26
+                    MatchLocate2.0  2019/08/29
              https://github.com/Dal-mzhang/MatchLocate2
                 Miao Zhang, Dalhousie Univesrity
                     E-mail: miao.zhang@dal.ca
