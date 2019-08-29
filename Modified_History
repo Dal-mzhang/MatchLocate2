@@ -10,4 +10,4 @@ If you find any bugs, please report to miao.zhang@dal.ca. Thanks.
 6. Replace the -Levla0/evlo0/evdp0/mag0 by reading from sac files (to better use multiple references, ch user0 mag), 01/07 2017
 7. Now multiple phases can be used (MARKT is replaced by a integer array), 01/11 2017
 8. Remove SNR threshold and adopt CC and MAD thresholds (eaiser to setup and understand), 08/22/2019
-9. Release MatchLocate2.0 on Github, 08/26 2019
+9. Release MatchLocate2.0 on Github, 08/29 2019
