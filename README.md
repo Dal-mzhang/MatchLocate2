@@ -10,6 +10,7 @@ Usage (type "MatchLocate2", step by step tutorials can be found in examples)
 
 Usage: MatchLocate2 -F(refevla/refevlo/refevdp) -R(maxlat/maxlon/maxh) -I(dlat/dlon/dh)
        -T(window/before/after) -H(CC/N(*MAD)) -D(INTD) -O(ouput) INPUT.in
+       
 -F: searching center (e.g., 37.799/139.998/7.8).
 -R: searching area (e.g., 0.05/0.05/5.0).
 -I: searching interval (e.g., 0.01/0.01/1.0).
