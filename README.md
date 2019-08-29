@@ -15,7 +15,7 @@ Usage: MatchLocate2 -F(refevla/refevlo/refevdp) -R(maxlat/maxlon/maxh) -I(dlat/d
 -R: searching area (e.g., 0.05/0.05/5.0).
 -I: searching interval (e.g., 0.01/0.01/1.0).
 -T: time length of the reference phase (e.g., 4.0/1.0/3.0).
--H: cross-correlation thresholds CC && N(*MAD) (e.g., 0.3/10.0, or 0.3/0.0, or 0.0/10.0).
+-H: cross-correlation thresholds CC && NMAD (e.g., 0.3/10.0, or 0.3/0.0, or 0.0/10.0).
 -D: keep one event within INTD sec (e.g., 6.0).
 -O: output (1,2,3) or don't output (0) the cross-correlogram or CC coefficient.
 INPUT.in: directories of templates and continuous data, horizontal and vertical slowness, etc.
