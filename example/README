@@ -1,0 +1,42 @@
+Miao Zhang
+Dalhousie University
+miao.zhang@dal.ca
+##########################################
+1. data preparation and processing
+#Put your templates and continuous seismic data in "Template" and "Trace", respectively.
+#Seismic data in this example could be downloaded from Hi-net (http://www.hinet.bosai.go.jp/).
+#Time window is from 2012/09/02 03:00:00.0 to 2012/09/02 03:59.59.99 in "Trace/20120902". [prepared already]
+cd Template #make sure you have templates in SAC format with correct headers
+perl marktaup.pl #mark t1 and t2 for P and S waves, calculate slowness
+#You need TauP and a local velocity model (if not, use prem or iasp91)
+
+cd ../Trace #continuous data
+#make sure both templates and continuous have the same station, sampling rate, and frequency filtering.  
+perl SACH_O.pl 20120902 #All time will be relative to ZERO of the day.
+
+
+2. run Match&Locate
+perl RunprocAll.pl catalog.dat 
+#change corresponding parameters in RunproAll.pl and PROC_MatchLocate.pl
+
+3. select events (in case one event is detected by multiple templates)
+cd MultipleTemplate
+perl SelectFinal.pl 2012 09 02 #merge all events and select final events, change threshold as needed
+#DetectedFinal.dat would be your final catalog
+perl PlotEventWaveform.pl DetectedFinal.dat #plot waveform comparison 
+
+Format:
+INPUT.in [input for Match&Locate]
+    21 //number of channels
+    template_dir  trace_dir   horizontal_slowness/vertical_slowness  phase_marker Phase_name
+    ...
+    ...
+
+EventCase.out [output by Match&Locate, temporary file]
+    (result for one template)
+    Event     Time    Lat.   Lon.    Depth    Mag.   Coef.  N*(MAD)
+
+
+DetectedFinal.dat [final catalog]
+#No.      Date        Time         Lat.      Lon.        Dep.     Mag.   Coef.     N(*MAD)        Reference
+

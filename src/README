@@ -1,0 +1,16 @@
+MatchLocate2.c
+It's the main code to detect and locate small events.
+
+SelectFinal.c
+If you have lots of templates, one event might be detected more than once.
+Now, you should use this code to choose one best among them.
+
+SHIFT.c [for plotting only]
+Get time shift between the detected event and the reference event at one station.
+You may need it when you plot the seismogram comparision.
+
+sacCC [for plotting only]
+compute the normalized cross-correlation.
+
+lsac [for plotting only]
+get the amplitude at one point in SAC file. [From Lupei Zhu's code]
