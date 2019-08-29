@@ -7,6 +7,7 @@ miao.zhang@dal.ca
 #Seismic data in this example could be downloaded from Hi-net (http://www.hinet.bosai.go.jp/).
 #Time window is from 2012/09/02 03:00:00.0 to 2012/09/02 03:59.59.99 in "Trace/20120902". [prepared already]
 cd Template #make sure you have templates in SAC format with correct headers
+unzip waveforms-of-templates.zip #unzip all templates
 perl marktaup.pl #mark t1 and t2 for P and S waves, calculate slowness
 #You need TauP and a local velocity model (if not, use prem or iasp91)
 
