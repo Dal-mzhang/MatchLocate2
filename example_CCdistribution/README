@@ -4,6 +4,7 @@ slave event: 2012/09/02 03:33:51.61 37.791 140.005 7.8 M 2.3
 1. copy ../example/Template/20120902032413.12 to Template directory [skip it, prepared]
 2. copy ../example/Template/20120902033351.61 to Trace directory [skip it, prepared]
 3. resample both sampling interval from 0.01 to 0.001 [skip it, prepared]
+（cd Trace; unzip 20120902.zip）
 4. run MatchLocate to get CCdistribution.out (perl RunproAll.pl catalog.dat)
 5. go to plot directory and plot the CC distribution (perl plot_ccdistribution.pl)
 
