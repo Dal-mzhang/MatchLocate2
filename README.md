@@ -7,6 +7,7 @@ Detect and locate small events from continuous seismic waveforms using templates
                     E-mail: miao.zhang@dal.ca
                     
 Usage (type "MatchLocate2", step by step tutorials can be found in examples)
+
 Usage: MatchLocate2 -F(refevla/refevlo/refevdp) -R(maxlat/maxlon/maxh) -I(dlat/dlon/dh)
        -T(window/before/after) -H(CC/N(*MAD)) -D(INTD) -O(ouput) INPUT.in
 -F: searching center (e.g., 37.799/139.998/7.8).
@@ -19,12 +20,15 @@ Usage: MatchLocate2 -F(refevla/refevlo/refevdp) -R(maxlat/maxlon/maxh) -I(dlat/d
 INPUT.in: directories of templates and continuous data, horizontal and vertical slowness, etc.
 
 
-Introduction
+Introduction:
+
 Compared to the current methods of small event detection (template matching/matched filter), the Match&Locate places event detection to a lower magnitude level and extends the capability of detecting small events that have large distance separations from the template. The method has little dependence on the accuracy of the velocity models used, and, at the same time, provides high-precision location information of the detected small-magnitude events.
 
-References
+References:
+
 Zhang M. and Wen L. An effective method for small event detection: match and locate (M&L). Geophysical Journal International, 200 (3), 1523-1537, 2015.
 Zhang M. and Wen L. Seismological Evidence for a Low‐Yield Nuclear Test on 12 May 2010 in North Korea. Seismological Research Letters, 86 (1), 138-145, 2015.
 Zhang M. and Wen L. Earthquake characteristics before eruptions of Japan's Ontake volcano in 2007 and 2014. Geophysical Research Letters, 42 (17), 6982–6988, 2015.
+
 
 Our GPU version is available at https://github.com/MinLiu19/GPU-MatchLocate1.0
