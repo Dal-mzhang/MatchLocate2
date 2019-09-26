@@ -867,7 +867,7 @@ void Checkdata(int ntrace, char **traces, int *npp, float *tleng) {
     if(fabs(nne[ntrace-1] - nne[0]) > 1.0e-3) {
         fprintf(stderr,"Please Check Your Continuous Data!!! Not the same end time.\n");
         fprintf(stderr,"Shortest end time: %.2f sec; Longest end time %.2f sec. The shortest one would be used.\n",
-                nne[ntrace-1],nne[0]);
+                nne[0],nne[ntrace-1]);
     }
 
 
