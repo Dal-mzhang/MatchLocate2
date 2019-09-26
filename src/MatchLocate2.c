@@ -33,6 +33,7 @@
 //#include <libiomp/omp.h>
 #include <unistd.h>
 #include "sac.h"
+#define M_PI 3.14159265358979323846264338327950288
 #define MAX(A,B) ((A)>(B))?(A):(B)
 #define MIN(A,B) ((A)>(B))?(A):(B)
 #define D2R  .017453292519943295769237
