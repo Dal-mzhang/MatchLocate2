@@ -1,8 +1,10 @@
 #You may change the compile option
 #MAC
 CC = gcc-9 -Os -mcmodel=medium -fopenmp -w
-#Linux
+#Linux 1
 #CC = gcc -Os -mcmodel=medium -fopenmp -w
+#Linux 2
+#CC = gcc -Os -mcmodel=medium -std=c99 -fopenmp -w
 LIBS = -lm
 CFLAGS = -L/usr/local/sac/lib -lsac -lsacio -lm
 
