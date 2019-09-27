@@ -416,7 +416,7 @@ void Subcc(float *obj, float *ref,  int k, double *fp) {
         norm += obj[n1+j]*obj[n1+j];
         normMaster += ref[j]*ref[j];
     }
-    cczero = cc/(sqrt(norm)*sqrt(normMaster));
+    cczero = cc/(sqrt(norm+1.0e-10)*sqrt(normMaster+1.0e-10));
     *fp = cczero;
 }
 
