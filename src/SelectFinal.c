@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
                 sscanf(&argv[i][2],"%f",&INTD);
                 break;
             case 'H':
-                sscanf(&argv[i][2],"%f",&THRESH,&NMAD);
+                sscanf(&argv[i][2],"%f/%f",&THRESH,&NMAD);
                 break;
             default:
                 error = 1;
