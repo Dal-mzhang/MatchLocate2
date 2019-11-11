@@ -8,6 +8,7 @@
 #include <time.h>
 #define D2R  .017453292519943295769237
 #define R2D    57.2957795130823208768
+#define M_PI 3.14159265358979323846264338327950288
 int main(int argc, char **argv) {
     int i,error;
     double lat,lon,h,Dt_Dgc,Dt_Dh,Dt;
