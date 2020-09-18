@@ -1,6 +1,9 @@
 MatchLocate2.c
 It's the main code to detect and locate small events.
 
+MatchLocate2.1.c
+It's the main code to detect and locate small events (with an option for bandpass fitering).
+
 SelectFinal.c
 If you have lots of templates, one event might be detected more than once.
 Now, you should use this code to choose one best among them.
