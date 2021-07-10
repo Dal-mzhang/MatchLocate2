@@ -5,6 +5,7 @@ use warnings;
 #       Miao Zhang  11/22/2013  USTC        inital version
 #       Miao Zhang  02/07/2015  USTC        add description (M&L1)
 #       Miao Zhang  08/22/2019  Dalhousie   change inputs (M&L2)
+#       Miao Zhang  07/10/2021  Dalhousie   add -B option for fitering
 # Reference: Zhang and Wen, GJI, 2015
 # Email: miao.zhang@dal.ca
 #######################################
@@ -58,6 +59,11 @@ $T = "4.0/1.0/3.0";
 #One event is detected when 1) CC >= THRESH && 2) NMAD(*MAD) >= N(*MAD)
 #You may use CC (e.g., 0.3/0.0) and MAD (e.g., 0.0/10.0) individually or simultaneously (e.g., 0.3/10.0)
 $H = "0.0/12.0";
+
+#Bandpass fitering
+#positive values: will be applied. e.g., 2/8 (if you use the raw data)
+#negective values: will be ignored. e.g., -1/-1 (if you use the fitered data)
+$B = "-1/-1";
 
 #station parameter
 #1.Channel number
@@ -121,8 +127,8 @@ close(NEW);
 ($dlat,$dlon,$dh) = split('/',$I);
 $np = int(2*$maxlat/$dlat + 1)*(int(2*$maxlon/$dlon + 1))*int((2*$maxh/$dh + 1));
 print STDERR "There are $np potential locations\n";
-system("../bin/MatchLocate2 -F$F -R$R -I$I -T$T -H$H -D$D  -O$O $INPUT");
-printf STDERR "../bin/MatchLocate2 -F$F -R$R -I$I -T$T -H$H -D$D  -O$O $INPUT\n";
+system("../bin/MatchLocate2 -F$F -R$R -I$I -T$T -H$H -D$D -B$B -O$O $INPUT");
+printf STDERR "../bin/MatchLocate2 -F$F -R$R -I$I -T$T -H$H -D$D -B$B -O$O $INPUT\n";
 
 if($O == 1 ){
     $stackcc1 = "SELECT_STACKCC";
