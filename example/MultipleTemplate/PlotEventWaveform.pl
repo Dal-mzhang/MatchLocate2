@@ -2,19 +2,21 @@
 #An example to plot seismogram comparision between the template and the detected event.
 #02/07/2015 inital version
 #08/22/2019 updated version
+#07/10/2021 upgraded to GMT 6
 #Miao Zhang, Dalhousie University, miao.zhang@da.ca
 @ARGV == 1 || die "perl $0 event.list\n";
 $EVENT = $ARGV[0];
-chomp(@EVENT);
+chomp($EVENT);
 $dir = "../..";
 $templatedir = "$dir/example/Template";
 $tracedir = "$dir/example/Trace";
 $input = "$dir/example/Template/INPUT";
 
-$pssac = "pssac"; 
-#Available from Prof. Lupei Zhu's homepage http://www.eas.slu.edu/People/LZhu/home.html
-$phaseshow="S";
-$markshow="t2"; 
+$phaseshow="S";  # phase will be used
+$markshow="t2"; # header for P or S phase 
+$tleng = "13"; # length of waveforms to plot
+$low = "-1"; # bandpass filtering, low (negative: not use)
+$high = "-1"; # bandpass filtering, high (negative: not use)
 
 $before = "-1";
 $after = "3";
@@ -58,7 +60,7 @@ foreach $_(@event){
 			$num++;
 		}
 	}
-	$nn = $num+1;
+	$nn = $num;
 	
 	foreach $file1(@sta){
 		chomp($file1);
@@ -70,7 +72,17 @@ foreach $_(@event){
 		($jk,$dt) = split('=',$la);chomp($dt);
 		$ts = $t1 + $before;
 		$te = $t1 + $after;
-		open(SAC,"|sac>jk");
+		
+        if($low > 0 && $high > 0){
+        open(SAC,"|sac>jk");
+            print SAC "r $temp1/$station $temp2/$station\n";
+            print SAC "rmean\nrtrend\ntaper\n";
+            print SAC "bp c $low $high n 4 p 2\n";
+            print SAC "w over\nq\n";
+        close(SAC);
+        }
+
+        open(SAC,"|sac>jk");
 		print SAC "cut $ts $te\n";
 		print SAC "r $temp1/$station\n";
 		print SAC "w $temp1/$station.cut\n";
@@ -97,16 +109,18 @@ foreach $_(@event){
     unlink jk;
 	$mag = sprintf("%2.2f",$mag);
 	my $tss = $otime;
-	my $tee = $otime + 13;
+	my $tee = $otime + $tleng;
 
-	$R = "$tss/$tee/0/$nn";
+	$R = "$tss/$tee/-1/$nn";
 	
 	my %traces;
      foreach $file1(@sta){
          chomp($file1);
-         ($station,$t0,$D) = split(" ",$file1);
-         $traces{$station} = $t0;
-     }
+	 ($station,$t0,$D,$tmark,$phase) = split(" ",$file1);
+	 $station = sprintf("%-s",$station);
+	 if(-e "$temp1/$station" && -e "$temp2/$station" && $phase eq $phaseshow){
+                $traces{$station} = $t0;}
+     } 
     
     my @grey; my @red;
 	my @keys = sort {$traces{$b}<=>$traces{$a}} keys %traces;
@@ -114,17 +128,17 @@ foreach $_(@event){
          push  @grey, "$temp2/$_";
          push  @red, "$temp1/$_.cut";
      }   
-        
-    `$pssac -J$J  -R$R -C$tss/$tee -B$B @grey -Ent-3 -K  -M0.3 -r -W1p,grey > $PS`;
-    `$pssac -J$J  -R$R  @red -Ent-3 -K  -O -M0.3 -Y0.0i -r -W1p,red >> $PS`;
+
+    `gmt pssac -J$J  -R$R -C$tss/$tee -B$B @grey -Ent-3 -K  -M0.3 -W1p,grey > $PS`;
+    `gmt pssac -J$J  -R$R  @red -Ent-3 -K  -O -M0.3 -Y0.0i -W1p,red >> $PS`;
 	
-    $nbb = $nn +1.6;
-	open(GMT,"|psxy -R -JX -Sv0.03/0.15/0.05 -G255/0/0 -K -O -N >> $PS");
+    $nbb = $nn + 0.7;
+	open(GMT,"|gmt psxy -R -JX -Sv0.03/0.15/0.05 -G255/0/0 -K -O -N >> $PS");
 	print GMT "$otime $nbb 270 0.4\n";
 	close(GMT);
-	$i = 0;
+	$i = -1;
 	$tmm = ($tss + $tee)/2;
-	&PSTEXT($tmm,-2,13,0,4,MC,"Seconds since $year$month${day}000000.00",$PS);
+	&PSTEXT($tmm,-3,13,0,4,MC,"Seconds since $year$month${day}000000.00",$PS);
 
 	$nbb = $nn + 2.0;
 	&PSTEXT($tmm,$nbb,15,0,4,MC,"$title (M $mag)",$PS);
@@ -148,7 +162,7 @@ foreach $_(@event){
 	}
 	$coefav = $coefsum/@sta;
     #printf "Average coef: %6.4lf  Event coef: %6.4lf\n",$coefav,$coef;
-    `psxy -R -J -O /dev/null >> $PS`;
+    `gmt psxy -R -J -O /dev/null >> $PS`;
     `rm -rf $temp1 $temp2`;
 }
 
@@ -160,7 +174,7 @@ if(-e "$out"){`rm -rf $out`}
 
 sub PSTEXT{
         my($xx, $yy,$textsize, $textangle, $textfont, $just, $text, $ps) = @_;
-        open(GMT,"| pstext -R$R -J$J -K -O -N >> $ps");
+        open(GMT,"| gmt pstext -R$R -J$J -K -O -N >> $ps");
                 print GMT "$xx $yy $textsize $textangle $textfont $just $text\n";
         close(GMT);
 }
