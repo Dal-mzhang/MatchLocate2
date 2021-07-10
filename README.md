@@ -10,7 +10,7 @@ Detect and locate small events from continuous seismic waveforms using templates
 (type "MatchLocate2", step by step tutorials can be found in examples)
 
 Usage: MatchLocate2 -F(refevla/refevlo/refevdp) -R(maxlat/maxlon/maxh) -I(dlat/dlon/dh)
-       -T(window/before/after) -H(CC/N(*MAD)) -D(INTD) -O(ouput) INPUT.in
+       -T(window/before/after) -H(CC/N(*MAD)) -D(INTD) -B(low/high) -O(ouput) INPUT.in
        
 -F: searching center (e.g., 37.799/139.998/7.8).
 -R: searching area (e.g., 0.05/0.05/5.0).
@@ -18,6 +18,7 @@ Usage: MatchLocate2 -F(refevla/refevlo/refevdp) -R(maxlat/maxlon/maxh) -I(dlat/d
 -T: time length of the reference phase (e.g., 4.0/1.0/3.0).
 -H: cross-correlation thresholds CC && NMAD (e.g., 0.3/10.0, or 0.3/0.0, or 0.0/10.0).
 -D: keep one event within INTD sec (e.g., 6.0).
+-B: bandpass fitering for both templates and traces (e.g., 2/8).
 -O: output (1,2,3) or don't output (0) the cross-correlogram or CC coefficient.
 INPUT.in: directories of templates and continuous data, horizontal and vertical slowness, etc.
 
