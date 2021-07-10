@@ -44,7 +44,7 @@
 #define SAC_BANDPASS          "BP"
 #define SAC_BUTTERWORTH       "BU"
 
-#define NPEVE 900000
+#define NPEVE 9000
 //max possible determined events for all locaiton.
 //(!!!! Now I replace it by calculating the searching area and the time length of the continuous seismograms.)
 
@@ -440,7 +440,7 @@ void Subcc(float *obj, float *ref,  int k, double *fp) {
         norm += obj[n1+j]*obj[n1+j];
         normMaster += ref[j]*ref[j];
     }
-    cczero = cc/(sqrt(norm+1.0e-10)*sqrt(normMaster+1.0e-10));
+    cczero = cc/(sqrt(norm+1.0e-20)*sqrt(normMaster+1.0e-20));
     *fp = cczero;
 }
 
@@ -883,8 +883,8 @@ void Checkdata(int ntrace, char **traces, int *npp, float *tleng) {
     qsort(nnl,ntrace,sizeof(nnl[0]),Time_compare_D);
 
 
-    if(fabs(nnb[ntrace-1] - nnb[0]) > 1.0e-3) {
-        fprintf(stderr,"Please Check Your Continuous Data!!! Not the same begin time.\n");
+    if(fabs(nnb[ntrace-1] - nnb[0]) > 0.5*nnd[0]) {
+        fprintf(stderr,"Please Check Your Continuous Data!!! Not the same beginning time.\n");
         exit(-1);
     }
     if(fabs(nnd[ntrace-1] - nnd[0]) > 1.0e-5) {
