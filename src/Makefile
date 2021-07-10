@@ -1,6 +1,6 @@
 #You may change the compile option
 #MAC
-CC = gcc-9 -Os -mcmodel=medium -fopenmp -w
+CC = gcc-10 -Os -mcmodel=medium -fopenmp -w
 #Linux 1
 #CC = gcc -Os -mcmodel=medium -fopenmp -w
 #Linux 2
@@ -13,7 +13,7 @@ all: MatchLocate2 SelectFinal SHIFT lsac ccsacc clean
 BIN = ../bin
 
 MatchLocate2: MatchLocate2.o sacio.o
-	$(CC) -o $(BIN)/$@ $^ $(LIBS)
+	$(CC) -o $(BIN)/$@ $^ $(LIBS) $(CFLAGS)
 
 SelectFinal: SelectFinal.o
 	$(CC) -o $(BIN)/$@ $^ $(LIBS)
