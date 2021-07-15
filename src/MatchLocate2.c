@@ -440,7 +440,9 @@ void Subcc(float *obj, float *ref,  int k, double *fp) {
         norm += obj[n1+j]*obj[n1+j];
         normMaster += ref[j]*ref[j];
     }
-    cczero = cc/(sqrt(norm+1.0e-20)*sqrt(normMaster+1.0e-20));
+    if(norm == 0 || normMaster == 0){*fp = 0.0; return;}
+    cczero = cc/(sqrt(norm)*sqrt(normMaster));
+    //cczero = cc/(sqrt(norm+1.0e-20)*sqrt(normMaster+1.0e-20));
     *fp = cczero;
 }
 
@@ -705,6 +707,7 @@ float Mag(float initime,double lat, double lon, double h) {
         for(k=0; k<npts2; k++) {
             if(fabs(ar[k]) > armax)armax = fabs(ar[k]);
         }
+	if(armax == 0 || mastermax == 0) continue;
         ratio[i] = armax/mastermax;
     	mag[i] = mag0[i] + log10(ratio[i]);
     }
