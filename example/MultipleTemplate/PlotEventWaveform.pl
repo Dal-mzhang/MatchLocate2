@@ -66,7 +66,7 @@ foreach $_(@event){
 		chomp($file1);
 		($station,$t0,$D) = split(" ",$file1);
 		$station = sprintf("%-s",$station);
-		if(-e "$temp1/$station" && -e "$temp2/$station"){
+		if(-e "$temp1/$station" && -e "$temp2/$station" && $phase eq $phaseshow){
 		($jk,$t1,$evla0,$evlo0,$evdp0,$stla,$stlo) = split(" ",`saclst $markshow evla evlo evdp stla stlo f "$temp1/$station"`);
 		$la = `$dir/bin/SHIFT -L$evla0/$evlo0/$evdp0 -E$evla/$evlo/$evdp -D$D -S$stla/$stlo`;
 		($jk,$dt) = split('=',$la);chomp($dt);
