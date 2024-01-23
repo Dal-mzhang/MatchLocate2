@@ -1,7 +1,7 @@
 MatchLocate2.c
 It's the main code to detect and locate small events.
 [the subroutine function xapiir requires SAC's libs;
-if you use the latest Mac M chips, please make sure you compile and build the libs from the source code.]
+if you use the latest Mac M chips, please make sure you compile and build the libs from the SAC source code.]
 
 SelectFinal.c
 If you have lots of templates, one event might be detected more than once.
