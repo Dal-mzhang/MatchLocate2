@@ -12,6 +12,9 @@ chomp($day);
 
 my $detect = "DetectedFinal.dat";
 
+#further select based on the number of available traces 
+my $min_trace = "9";
+
 #thresholds (CC/N*MAD)
 my $H = "0.30/12.0";
 
@@ -36,8 +39,10 @@ foreach $_(@events){
     shift(@pars);
     for($i=0;$i<$num;$i++){
         chomp($pars[$i]);
-        my ($jk,$time,$lat,$lon,$dep,$mag,$coef,$MAD) = split(" ",$pars[$i]);
-        print FL "$time $lat $lon $dep $mag $coef $MAD $template\n";
+        my ($jk,$time,$lat,$lon,$dep,$mag,$coef,$MAD,$NumTrace) = split(" ",$pars[$i]);
+        if($NumTrace >= $min_trace){
+            print FL "$time $lat $lon $dep $mag $coef $MAD $NumTrace $template\n";
+        }
     }
 }
 close(FL);
@@ -54,13 +59,13 @@ open(OUT,">$detect");
 foreach $_(@events1){
     chomp($_);
     if(substr($_,0,1) eq "#"){
-        print OUT "#No.      Date        Time         Lat.      Lon.        Dep.     Mag.   Coef.     N(*MAD)        Reference\n";
+        print OUT "#No.      Date        Time         Lat.      Lon.        Dep.     Mag.   Coef.     N(*MAD)  N_trace Reference\n";
     }else{
-        my ($num,$time,$lat,$lon,$dep,$mag,$coef,$NMAD,$ref) = split(" ",$_);
+        my ($num,$time,$lat,$lon,$dep,$mag,$coef,$NMAD,$Ntrace,$ref) = split(" ",$_);
         my $hh = int($time/3600);
         my $min = int(($time-$hh*3600)/60);
         my $sec = $time - $hh*3600 - $min*60;
-        printf OUT "%4d   %04d/%02d/%02d   %02d:%02d:%06.3f   %7.4f   %8.4f   %6.2f   %5.2f  %6.4f  %8.4f      %s\n",$num,$year,$month,$day,$hh,$min,$sec,$lat,$lon,$dep,$mag,$coef,$NMAD,$ref;
+        printf OUT "%4d   %04d/%02d/%02d   %02d:%02d:%06.3f   %7.4f   %8.4f   %6.2f   %5.2f  %6.4f  %8.4f   %3d   %s\n",$num,$year,$month,$day,$hh,$min,$sec,$lat,$lon,$dep,$mag,$coef,$NMAD,$Ntrace,$ref;
     }
 }
 unlink $out;
