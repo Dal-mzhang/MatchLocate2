@@ -22,6 +22,7 @@ typedef struct event {
     double eventCoef;
     double eventNMAD;
     double eventMag;
+    int eventtr;
     char eventRef[128];
 } EVENT;
 
@@ -91,9 +92,9 @@ int main(int argc, char **argv) {
         k = 0;
         kk = 0;
         //fprintf(stderr,"Start read all potential events!\n");
-        while((fscanf(fp1,"%lf %lf %lf %lf %lf %lf %lf %s", &loc1[k].eventTime, &loc1[k].eventLat,
+        while((fscanf(fp1,"%lf %lf %lf %lf %lf %lf %lf %d %s", &loc1[k].eventTime, &loc1[k].eventLat,
                       &loc1[k].eventLon, &loc1[k].eventH, &loc1[k].eventMag, &loc1[k].eventCoef,
-                      &loc1[k].eventNMAD, loc1[k].eventRef)) != EOF) {
+                      &loc1[k].eventNMAD, &loc1[k].eventtr, &loc1[k].eventRef)) != EOF) {
             if(loc1[k].eventNMAD >= NMAD && loc1[k].eventCoef >= THRESH) {
                 loc[kk].eventTime = loc1[k].eventTime;
                 loc[kk].eventLat = loc1[k].eventLat;
@@ -102,6 +103,7 @@ int main(int argc, char **argv) {
                 loc[kk].eventMag = loc1[k].eventMag;
                 loc[kk].eventCoef = loc1[k].eventCoef;
                 loc[kk].eventNMAD = loc1[k].eventNMAD;
+                loc[kk].eventtr = loc1[k].eventtr;
                 strcpy(loc[kk].eventRef,loc1[k].eventRef);
                 kk++;
             }
@@ -141,7 +143,7 @@ void DetermineEvent(EVENT *loc,long int gk) {
         fprintf(stderr,"Can't open output file in DetermineEvent\n");
         exit(-1);
     }
-    fprintf(fp,"#Event     Time     Lat.      Lon.        Depth    Mag.    Coef.     N(*MAD)       Reference\n");
+    fprintf(fp,"#Event     Time     Lat.      Lon.        Depth    Mag.    Coef.     N(*MAD)    Num_Trace     Reference\n");
 
     if(gk > 0) {
         loc2[0].eventTime = loc[0].eventTime;
@@ -151,6 +153,7 @@ void DetermineEvent(EVENT *loc,long int gk) {
         loc2[0].eventMag = loc[0].eventMag;
         loc2[0].eventCoef = loc[0].eventCoef;
         loc2[0].eventNMAD = loc[0].eventNMAD;
+        loc2[0].eventtr = loc[0].eventtr;
         strcpy(loc2[0].eventRef,loc[0].eventRef);
 
         k = 1;
@@ -170,6 +173,7 @@ void DetermineEvent(EVENT *loc,long int gk) {
                 loc2[k].eventMag = loc[i].eventMag;
                 loc2[k].eventCoef = loc[i].eventCoef;
                 loc2[k].eventNMAD = loc[i].eventNMAD;
+                loc2[k].eventtr = loc[i].eventtr;
                 strcpy(loc2[k].eventRef,loc[i].eventRef);
                 k++;
             }
@@ -179,9 +183,9 @@ void DetermineEvent(EVENT *loc,long int gk) {
         qsort(loc2,k,sizeof(EVENT),Time_compare_Time);
 
         for(i=0; i<k; i++) {
-            fprintf(fp,"%4d   %9.3lf   %7.4f   %8.4f   %6.2f   %5.2f    %6.4f    %8.4f    %s\n",i+1,
+            fprintf(fp,"%4d   %9.3lf   %7.4f   %8.4f   %6.2f   %5.2f    %6.4f    %8.4f    %3d    %s\n",i+1,
                     loc2[i].eventTime,loc2[i].eventLat,loc2[i].eventLon,loc2[i].eventH,loc2[i].eventMag,
-                    loc2[i].eventCoef,loc2[i].eventNMAD,loc2[i].eventRef);
+                    loc2[i].eventCoef,loc2[i].eventNMAD,loc2[i].eventtr,loc2[i].eventRef);
         }
     }
     fclose(fp);
