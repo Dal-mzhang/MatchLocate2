@@ -11,4 +11,5 @@ If you find any bugs, please report to miao.zhang@dal.ca. Thanks.
 7. Now multiple phases can be used (MARKT is replaced by a integer array), 01/11 2017
 8. Remove SNR threshold and adopt CC and MAD thresholds (eaiser to setup and understand), 08/22/2019
 9. Release MatchLocate2.0 on Github, 08/29 2019
-10. Officially add the -B option (filtering for templates and traces) into the 2.0 version, 07/10/2021
+10. Officially add the -B option (filtering for templates and traces) into the 2.0 version (but be aware of that the tapering is required, which may lead to the self-detection CC less than 1),  07/10/2021
+11. Update the SelectFinal.c and SelectFinal.pl script, which can help further select the detections based on the number of available traces (i.e., not number of stations), 03/28/2024
